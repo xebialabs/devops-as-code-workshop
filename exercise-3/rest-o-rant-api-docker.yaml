@@ -1,0 +1,13 @@
+apiVersion: xl-deploy/v1beta1
+kind: Applications
+spec:
+- name: rest-o-rant-api-docker
+  type: udm.Application
+  children:
+  - name: '1.0'
+    type: udm.DeploymentPackage
+    deployables:
+    - name: rest-o-rant-api
+      type: docker.ContainerSpec
+      image: xebialabsunsupported/rest-o-rant-api
+      showLogsAfter: 5

@@ -1,0 +1,7 @@
+apiVersion: xl-deploy/v1beta1
+kind: Environments
+spec:
+- name: Local Docker Engine
+  type: udm.Environment
+  members:
+  - Infrastructure/local-docker
