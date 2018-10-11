@@ -8,8 +8,6 @@ This workshop will teach you:
 * How to import and run a pipeline with XL Release
 * How to export XL YAML files to learn about the syntax
 
-**N.B.**: This workshop builds on the first workshop. Exercises 6 and 7 are really new, but the content of the other exercises was changed slightly. If you've done the first workshop, just quickly go through the first exercises to get your repository up to speed. But you might want to skip actually running the deployments or releases to be faster
-
 ## Prerequisites
 
 You'll need to have Docker installed on your machine before you begin:
