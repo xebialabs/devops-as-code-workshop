@@ -1,14 +1,13 @@
 --- License ---
 License version: 3
 Product: XL Release
-Licensed to: XebiaLabs
-Contact: DevOps As Code <xl-dev-love@xebialabs.com>
-Repository id: b45d6c1d-3744-4d3c-a876-a6280b976367
-Expires after: 2018-10-17
-Maximum number of users: 100
-Support policy: 1 month of technical support
-Edition: Trial
+Licensed to: XebiaLabs DevOps-as-code Workshop (POC)
+Contact: sales@xebialabs.com
+Expires after: 2018-11-05
+Maximum number of users: 5
+Support policy: POC
+Edition: Enterprise
 --- Signature (SHA1withDSA) ---
-302c02141353270798956a90dba9e7d015060dd223c21a1d02144cc4abeb7b5fa6564f7e19127011
-2cba1da75ed9
+302c0214263243477739c6907ff804756eaff0c3b9a0bb830214206dfd61f9a90284dc45a8f9ec71
+bc229e940c67
 --- End of Signature ---
