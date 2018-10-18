@@ -1,25 +1,18 @@
 version: '2.3'
 services:
   xl-deploy:
-    image: xebialabsunsupported/xl-deploy:8.5.0-alpha.25-no-devops-as-code
+    build: docker/xl-deploy
     ports:
     - "4516:4516"
-    volumes:
-    - ./docker/volumes/xld/conf/deployit-license.lic:/opt/xebialabs/xl-deploy-server/conf/deployit-license.lic:ro
-    - ./docker/volumes/xld/hotfix/plugins:/opt/xebialabs/xl-deploy-server/hotfix/plugins:ro
-    - ./docker/volumes/xld/plugins:/opt/xebialabs/xl-deploy-server/plugins
     environment:
     - ADMIN_PASSWORD=admin
 
   xl-release:
-    image: xebialabsunsupported/xl-release:8.5.0-alpha.22-no-devops-as-code
+    build: docker/xl-release
     ports:
     - "5516:5516"
     depends_on:
     - xl-deploy
-    volumes:
-    - ./docker/volumes/xlr/conf/xl-release-license.lic:/opt/xebialabs/xl-release-server/conf/xl-release-license.lic:ro
-    - ./docker/volumes/xlr/hotfix:/opt/xebialabs/xl-release-server/hotfix:ro
     environment:
     - ADMIN_PASSWORD=admin
 
