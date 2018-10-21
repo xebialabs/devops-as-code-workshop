@@ -1,0 +1,129 @@
+apiVersion: xl-release/v1beta1
+kind: Templates
+spec:
+- name: e-Commerce
+  type: xlrelease.Folder
+  children:
+  - name: e-Commerce CD pipeline
+    type: xlrelease.Release
+    description: |
+      This XL Release template shows how to deploy and undeploy an application, based on microservices architecture, to AWS ECS using XL Deploy.
+    tags:
+    - e-Commerce
+    - ECS
+    scriptUsername: "admin"
+    scriptUserPassword: "admin"
+    variables:
+    - key: "ECSClusterName"
+      type: "xlrelease.StringVariable"
+      requiresValue: "false"
+      showOnReleaseStart: "false"
+    - key: "ECSExecutionRoleArn"
+      type: "xlrelease.StringVariable"
+      requiresValue: "false"
+      showOnReleaseStart: "false"
+    - key: "ECSClusterArn"
+      type: "xlrelease.StringVariable"
+      requiresValue: "false"
+      showOnReleaseStart: "false"
+    - key: "LoadBalancerDNSName"
+      type: "xlrelease.StringVariable"
+      requiresValue: "false"
+      showOnReleaseStart: "false"
+    phases:
+    - name: Provision Infrastructure
+      color: '#ff9e3b'
+      type: xlrelease.Phase
+      tasks:
+      - name: Provision ecommerce product in service catalog
+        type: xldeploy.Deploy
+        server: XL Deploy
+        deploymentPackage: ecommerce-infrastructure/1.0
+        deploymentEnvironment: Environments/AWS
+      - name: Update Infra Items
+        type: xlrelease.SequentialGroup
+        tasks:
+        - name: Get OutputVariables
+          type: xld.GetCITask
+          server: XL Deploy
+          ciID: Infrastructure/aws/cloudformation/ecommerce-cloudformation
+          accept: "json"
+          variableMapping:
+              pythonScript.response: "${outputs}"
+        - name: Store OutputVariables to XLR variables
+          type: xlrelease.ScriptTask
+          script: |
+            import json
+            for k, v in json.loads(releaseVariables['outputs'])['outputVariables'].iteritems():
+                releaseVariables[k] = v
+        - name: Update CLuster name on ECS cluster
+          type: xld.UpdateCIProperty
+          server: XL Deploy
+          ciID: Infrastructure/aws/ecs-cluster
+          ciProperty: clusterName
+          propertyValue: "${ECSClusterName}"
+        - name: Update CLuster region on ECS cluster
+          type: xld.UpdateCIProperty
+          server: XL Deploy
+          ciID: Infrastructure/aws/ecs-cluster
+          ciProperty: region
+          propertyValue: "eu-west-1"
+        - name: Update CLuster ARN on ECS cluster
+          type: xld.UpdateCIProperty
+          server: XL Deploy
+          ciID: Infrastructure/aws/ecs-cluster
+          ciProperty: clusterArn
+          propertyValue: "${ECSClusterArn}"
+        - name: Update ECS Dictionary
+          type: xld.UpdateCIProperty
+          server: XL Deploy
+          ciID: Environments/ECS Dictionary
+          ciProperty: entries
+          propertyValue: |
+                {"ECS_EXECUTION_ROLE":"${ECSExecutionRoleArn}","region":"eu-west-1"}
+    - name: Deploy e-commerce application
+      type: xlrelease.Phase
+      tasks:
+      - name: Deploy store app
+        type: xldeploy.Deploy
+        server: XL Deploy
+        deploymentPackage: ecommerce-application/1.0
+        deploymentEnvironment: Environments/AWS
+    - name: Test
+      type: xlrelease.Phase
+      tasks:
+      - name: "Check e-commerce application status"
+        type: "xlrelease.ScriptTask"
+        script: |
+            import urllib2
+            import json
+            import time
+
+            time.sleep(60)
+            health_url = 'http://${LoadBalancerDNSName}/management/health'
+            def make_req(url):
+                req = urllib2.Request(url)
+
+                opener = urllib2.build_opener()
+                response = opener.open(req)
+                return json.loads(response.read())
+            resp = make_req(health_url)
+            if resp['status'] == 'UP':
+                print 'Application is in good health'
+            else:
+                print 'Application is not in good health'
+                exit(1)
+    - name: Undeploy Application
+      type: xlrelease.Phase
+      tasks:
+      - name: Undeploy store app
+        type: xldeploy.Undeploy
+        server: XL Deploy
+        deployedApplication: Environments/AWS/ecommerce-application
+    - name: Deprovision Infrastracture
+      type: xlrelease.Phase
+      tasks:
+      - name: ecommerece product in service catalog
+        type: xldeploy.Undeploy
+        server: XL Deploy
+        deployedApplication: Environments/AWS/ecommerce-infrastructure

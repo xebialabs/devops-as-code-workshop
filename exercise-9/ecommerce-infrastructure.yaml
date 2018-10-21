@@ -1,0 +1,53 @@
+apiVersion: xl-deploy/v1beta1
+kind: Applications
+spec:
+- name: ecommerce-infrastructure
+  type: udm.Application
+  children:
+  - name: '1.0'
+    type: udm.DeploymentPackage
+    deployables:
+    - name: ecommerce-cloudformation
+      type: aws.cloudformation.Template
+      file: !file ecommerce-cloudformation.yaml
+      capabilities:
+      - CAPABILITY_IAM
+      - CAPABILITY_NAMED_IAM
+      inputVariables:
+        ResourceNamePrefix: '{{RESOURCE_NAME_PREFIX}}'
+---
+apiVersion: xl-deploy/v1beta1
+kind: Infrastructure
+spec:
+- name: Infrastructure/aws/cloudformation
+  type: aws.cloudformation.Stack
+  region: eu-west-1
+- name: Infrastructure/aws/ecs-cluster
+  type: aws.ecs.Cluster
+  region: unknown
+  clusterName: unknown
+  clusterArn: unknown
+---
+apiVersion: xl-deploy/v1beta1
+kind: Environments
+spec:
+- name: CloudFormation Dictionary
+  type: udm.Dictionary
+  entries:
+    RESOURCE_NAME_PREFIX: '{{username}}-ecommerce'    
+- name: ECS Dictionary
+  type: udm.Dictionary
+  entries:
+    ECS_EXECUTION_ROLE: unknown
+    region: eu-west-1
+- name: AWS
+  type: udm.Environment
+  members:
+  - ~Infrastructure/aws
+  - ~Infrastructure/aws/cloudformation
+  - ~Infrastructure/aws/ecs-cluster
+  dictionaries:
+  - ~Environments/AWS Dictionary
+  - ~Environments/CloudFormation Dictionary
+  - ~Environments/ECS Dictionary
+

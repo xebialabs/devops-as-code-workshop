@@ -1,0 +1,51 @@
+apiVersion: xl-deploy/v1beta1
+kind: Applications
+spec:
+- name: ecommerce-application
+  type: udm.Application
+  children:
+  - name: '1.0'
+    type: udm.DeploymentPackage
+    deployables:
+    - name: ecommerce-ecs-service
+      type: aws.ecs.ServiceSpec
+      serviceName: '{{RESOURCE_NAME_PREFIX}}'
+      desiredCount: 1
+      launchType: FARGATE
+      networkMode: awsvpc
+      assignPublicIp: true
+      executionRole: '{{ECS_EXECUTION_ROLE}}'
+      cpu: 2048
+      memory: 4096
+      subnets:
+      - 'Name:{{RESOURCE_NAME_PREFIX}}-subnet-a'
+      - 'Name:{{RESOURCE_NAME_PREFIX}}-subnet-b'
+      securityGroups:
+      - 'Name:{{RESOURCE_NAME_PREFIX}}-internal-securitygroup'
+      loadBalancers:
+      - name: 'ecommerce-app-alb'
+        type: aws.ecs.LoadBalancerSpec
+        targetGroupArn: 'Name:{{RESOURCE_NAME_PREFIX}}-targetgroup'
+        containerName: ecommerce-app
+        containerPort: 8080
+      containerDefinitions:
+      - name: ecommerce-app
+        containerName: ecommerce-app
+        type: aws.ecs.ContainerDefinitionSpec
+        image: xebialabsunsupported/ecommerce-monolith:latest-fargate
+        cpu: 1024
+        softMemoryLimit: 768
+        portMappings:
+        - name: port-mapping-8080
+          type: aws.ecs.PortSpec
+          containerPort: 8080
+        logConfiguration:
+        - name: cloudwatch-log-registry
+          type: aws.ecs.LogConfigurationSpec
+          logDriver: awslogs
+          options:
+            awslogs-group: '/{{RESOURCE_NAME_PREFIX}}'
+            awslogs-region: '{{region}}'
+            awslogs-stream-prefix: '/{{RESOURCE_NAME_PREFIX}}'
+        environment:
+          SPRING_PROFILES_ACTIVE: dev,swagger
