@@ -192,7 +192,10 @@ Resources:
       Protocol: HTTP
       TargetType: ip
       VpcId: !Ref ecommerceVPC
-      HealthCheckIntervalSeconds: 30
+      HealthCheckIntervalSeconds: 10
+      TargetGroupAttributes:
+      - Key: deregistration_delay.timeout_seconds
+        Value: '5'
   ecommerceALBListener:
     Type: 'AWS::ElasticLoadBalancingV2::Listener'
     Properties:
