@@ -123,7 +123,7 @@ spec:
     - name: Deprovision Infrastracture
       type: xlrelease.Phase
       tasks:
-      - name: ecommerece product in service catalog
+      - name: ecommerce product in service catalog
         type: xldeploy.Undeploy
         server: XL Deploy
         deployedApplication: Environments/AWS/ecommerce-infrastructure
