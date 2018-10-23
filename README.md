@@ -211,7 +211,7 @@ But let's make sure that you don't forget next time that you run this workshop. 
 $ xl apply -f exercise-5/rest-o-rant-docker-pipeline.yaml
 ```
 
-4) Open the XL Release GUI and review the **REST-o-rant on Docker** pipeline that you've just imported and compare it to the XL YAML file.
+4) Open the XL Release GUI, go to **Design** tab, click on the **REST-o-rant** folder and then go to the **Templates** tab. Review the **REST-o-rant on Docker** pipeline that you've just imported and compare it to the XL YAML file.
 
 5) Start a new release from that template and follow the instructions.
 
@@ -229,7 +229,7 @@ In this exercise we will make the necessary modification in the package and the 
 
 and change **Undeploy Unused Dependencies** to `true`.
 
-2) In XL Release, remove the **Deploy REST-o-rant application backend** task from the first phase and the **Undeploy REST-o-rant application backend** step from the last phase.
+2) In XL Release, from the **REST-o-rant on Docker** pipeline template, remove the **Deploy REST-o-rant application backend** task from the first phase and the **Undeploy REST-o-rant application backend** step from the last phase.
 
 3) Run the pipeline to verify that the application dependencies and the updated pipeline function correctly. When the pipeline has completed, go to the XL Deploy UI and check that the **rest-o-rant-api-docker** application was undeployed.
 
@@ -291,7 +291,7 @@ $ xl apply -f exercise-8/AWSConfig.yaml
 
 # Exercise 9: Create AWS infrastructure with CloudFormation
 
-Then let's privision our infrastructure with CloudFormation. We'll let XL Deploy manage and run the CloudFormation template for us.
+Now privision the infrastructure using XL Deploy and CloudFormation. We'll let XL Deploy manage and run the CloudFormation template for us and let CloudFormation create the actual resources.
 
 1) Import the CloudFormation template and its metadata into XL Deploy:
 ```
@@ -323,7 +323,7 @@ $ xl apply -f exercise-10/ecommerce-pipeline.yaml
 
 3) In XL Release, create a new release based on the **e-Commerce CD pipeline** template in the **e-Commerce** folder. **Do not** start it yet!
 
-4) Delete the first task of the first phase (**Provision e-commerce infrastructure**). We've already done that part in the previoius exercise.
+4) We've already provisioned the infrastructure in the previous exercise. So, delete the first task of the first phase (**Provision e-commerce infrastructure**). In day-to-day use, one would let XL Release handle the complete orchestration, from provisioning the infrastructure to the very end when the infrastructure is deprovisioned.
 
 5) Start the release.
 
