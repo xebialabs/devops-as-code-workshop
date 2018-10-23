@@ -176,7 +176,7 @@ Resources:
   ecommerceLoadBalancer:
     Type: 'AWS::ElasticLoadBalancingV2::LoadBalancer'
     Properties:
-      Name: !Sub "${ResourceNamePrefix}-loadbalancer"
+      Name: !Sub "${ResourceNamePrefix}-lb"
       Scheme: internet-facing
       Type: application
       Subnets:
