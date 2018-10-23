@@ -192,7 +192,9 @@ Resources:
       Protocol: HTTP
       TargetType: ip
       VpcId: !Ref ecommerceVPC
-      HealthCheckIntervalSeconds: 10
+      HealthCheckIntervalSeconds: 120
+      HealthCheckTimeoutSeconds: 60
+      HealthCheckPath: '/management/health'
       TargetGroupAttributes:
       - Key: deregistration_delay.timeout_seconds
         Value: '5'
