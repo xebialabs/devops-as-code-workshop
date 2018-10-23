@@ -262,7 +262,7 @@ In Part II of the workshop we will show you how to use the XL DevOps Platform to
 
 For this part of the workshop, you'll need access to an AWS account with administrator privileges and you'll need to have Python installed on your machine.
 
-# Exercise 8: Import AWS credentials into XL Deploy
+## Exercise 8: Import AWS credentials into XL Deploy
 
 Let's start by connecting XL Deploy with your AWS account.
 
@@ -289,7 +289,7 @@ $ xl apply -f exercise-8/AWSConfig.yaml
 ```
 7) In XL Deploy, navigate to the **Infrastructure/aws** object in the Explorer tree and execute the "Check connection" task to verify that the connection could be made.
 
-# Exercise 9: Create AWS infrastructure with CloudFormation
+## Exercise 9: Create AWS infrastructure with CloudFormation
 
 Now privision the infrastructure using XL Deploy and CloudFormation. We'll let XL Deploy manage and run the CloudFormation template for us and let CloudFormation create the actual resources.
 
@@ -307,7 +307,7 @@ xl apply -f exercise-9/ecommerce-infrastructure.yaml
     * A load balancer with a target group
     * An ECS cluster
 
-# Exercise 10: Deploy a monolith application 
+## Exercise 10: Deploy a monolith application 
 
 Now that the infrastructure has been provisioned, let's deploy the applicaiton on top of it.
 
@@ -331,7 +331,7 @@ $ xl apply -f exercise-10/ecommerce-pipeline.yaml
 
 7) Wait until the release has finished.
 
-# Exercise 11: Shutting down the XL DevOps Platform
+## Exercise 11: Shutting down the XL DevOps Platform
 
 1) Shut down the XL DevOps Platform:
 
@@ -341,6 +341,6 @@ $ docker-compose down
 
 Not only will this stop the XL DevOps Platform, it will also remove any data stored on it. Therefore you should make sure that all releases and deployments have finished and that you've undeployed any applications you've deployed with it before you shut down the XL DevOps Platform.
 
-# Bonus exercise: create something new!
+## Bonus exercise: create something new!
 
 OK, that was cool and all. Now use the `xl export` command to learn more about the YAML format and build your own YAML file.
