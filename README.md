@@ -33,6 +33,13 @@ $ curl -LO https://github.com/xebialabs/devops-as-code-workshop/archive/master.z
 $ unzip master.zip
 $ cd devops-as-code-workshop-master
 ```
+## Install licenses for XL Deploy and XL Release
+
+The workshop requires you to bring your own licenses for XL Deploy and XL Release. You can use production licenses or request trial licenses for [XL Deploy](https://xebialabs.com/products/xl-deploy/trial/) and  [XL Release](https://xebialabs.com/products/xl-release/trial/).
+
+1) Copy the XL Deploy license to `docker/xl-deploy/default-conf/deployit-license.lic`
+
+2) Copy the XL Release license to `docker/xl-release/default-conf/xl-release-license.lic`
 
 ## Start up the XL DevOps Platform
 
