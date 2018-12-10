@@ -74,31 +74,50 @@ devops-as-code-workshop_xl-cli_1 exited with code 0
 
 ### Mac
 ```
-$ curl -LO https://s3.amazonaws.com/xl-cli/bin/8.5.0-beta.1/darwin-amd64/xl
+$ curl -LO https://s3.amazonaws.com/xl-cli/bin/8.5.0/darwin-amd64/xl
 $ chmod +x xl
 $ sudo mv xl /usr/local/bin
 ```
 
 ### Linux
 ```
-$ curl -LO https://s3.amazonaws.com/xl-cli/bin/8.5.0-beta.1/linux-amd64/xl
+$ curl -LO https://s3.amazonaws.com/xl-cli/bin/8.5.0/linux-amd64/xl
 $ chmod +x xl
 $ sudo mv xl /usr/local/bin
 ```
 
 ### Windows
-Download https://s3.amazonaws.com/xl-cli/bin/8.5.0-beta.1/windows-amd64/xl.exe
+Download https://s3.amazonaws.com/xl-cli/bin/8.5.0/windows-amd64/xl.exe
 and place it somewhere on your `%PATH%`
 
+2) Verify that you have installed the correct version of the XL CLI by executing the following command:
 
-2) Test the CLI by running the following the following command:
+```
+$ xl version
+```
+
+The output should look like this:
+```
+CLI version:             8.5.0
+Git version:             8.5.0-0-g2d5a36c
+API version XL Deploy:   xl-deploy/v1
+API version XL Release:  xl-release/v1
+Git commit:              2d5a36cd5769ea59b0ac4e11e4709d6504381076
+Build date:              2018-12-05T14:01:24.212Z
+GO version:              go1.11
+OS/Arch:                 darwin/amd64
+```
+
+The last line will be different, depending on the architecture of your machine.
+
+3) Test the XL CLI by executing the following command:
 ```
 $ xl help
 ```
 
-The output should look something like this:
+The output should look  like this:
 ```
-XL Cli 8.5.0-beta.1
+XL Cli 8.5.0
 The xl command line tool provides a fast and straightforward method for provisioning
 XL Release and XL Deploy with YAML files. The files can include items like
 releases, pipelines, applications and target environments.
@@ -108,21 +127,27 @@ Usage:
 
 Available Commands:
   apply       Apply configuration changes
-  export      Export configuration
+  blueprint   Create a Blueprint
+  generate    Generate configuration
   help        Help about any command
+  license     Display license info
   version     Display version info
+  wrapper     Generate XL wrapper
 
 Flags:
-      --config string                config file (default: $HOME/.xebialabs/config.yaml)
-  -h, --help                         help for xl
-  -q, --quiet                        suppress all output, except for errors
-  -v, --verbose                      verbose output
-      --xl-deploy-password string    Password to access the XL Deploy server (default "admin")
-      --xl-deploy-url string         URL to access the XL Deploy server (default "http://localhost:4516/")
-      --xl-deploy-username string    Username to access the XL Deploy server (default "admin")
-      --xl-release-password string   Password to access the XL Release server (default "admin")
-      --xl-release-url string        URL to access the XL Release server (default "http://localhost:5516/")
-      --xl-release-username string   Username to access the XL Release server (default "admin")
+      --blueprint-repository-password string   Password for the blueprint repository
+      --blueprint-repository-url string        URL for the blueprint repository (default "https://dist.xebialabs.com/public/blueprints")
+      --blueprint-repository-username string   Username for the blueprint repository
+      --config string                          config file (default: $HOME/.xebialabs/config.yaml)
+  -h, --help                                   help for xl
+  -q, --quiet                                  suppress all output, except for errors
+  -v, --verbose                                verbose output
+      --xl-deploy-password string              Password to access the XL Deploy server (default "admin")
+      --xl-deploy-url string                   URL to access the XL Deploy server (default "http://localhost:4516/")
+      --xl-deploy-username string              Username to access the XL Deploy server (default "admin")
+      --xl-release-password string             Password to access the XL Release server (default "admin")
+      --xl-release-url string                  URL to access the XL Release server (default "http://localhost:5516/")
+      --xl-release-username string             Username to access the XL Release server (default "admin")
 
 Use "xl [command] --help" for more information about a command.
 ```

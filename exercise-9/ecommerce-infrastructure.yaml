@@ -1,4 +1,4 @@
-apiVersion: xl-deploy/v1beta1
+apiVersion: xl-deploy/v1
 kind: Applications
 spec:
 - name: ecommerce-infrastructure
@@ -16,7 +16,7 @@ spec:
       inputVariables:
         ResourceNamePrefix: '{{RESOURCE_NAME_PREFIX}}'
 ---
-apiVersion: xl-deploy/v1beta1
+apiVersion: xl-deploy/v1
 kind: Infrastructure
 spec:
 - name: Infrastructure/aws/cloudformation
@@ -28,7 +28,7 @@ spec:
   clusterName: unknown
   clusterArn: unknown
 ---
-apiVersion: xl-deploy/v1beta1
+apiVersion: xl-deploy/v1
 kind: Environments
 spec:
 - name: CloudFormation Dictionary

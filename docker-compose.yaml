@@ -21,7 +21,7 @@ services:
     depends_on:
     - xl-deploy
     - xl-release
-    command: ["apply", "-v", "--xl-deploy-url", "http://xl-deploy:4516/", "--xl-release-url", "http://xl-release:5516/", "-f", "/data/docker/xl-cli/configure-xl-devops-platform.yaml"]
+    command: ["apply", "--xl-deploy-url", "http://xl-deploy:4516/", "--xl-release-url", "http://xl-release:5516/", "-f", "/data/docker/xl-cli/configure-xl-devops-platform.yaml"]
     volumes:
     - .:/data:ro
 

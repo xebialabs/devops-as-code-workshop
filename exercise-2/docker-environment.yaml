@@ -1,4 +1,4 @@
-apiVersion: xl-deploy/v1beta1
+apiVersion: xl-deploy/v1
 kind: Environments
 spec:
 - name: Local Docker Engine

@@ -1,12 +1,12 @@
-apiVersion: xl-deploy/v1beta1
+apiVersion: xl-deploy/v1
 kind: Infrastructure
 spec:
 - name: local-docker
   type: docker.Engine
   dockerHost: http://dockerproxy:2375
 ---
-apiVersion: xl-release/v1beta1
-kind: Configurations
+apiVersion: xl-release/v1
+kind: Templates
 spec:
 - name: XL Deploy
   type: xldeploy.XLDeployServer

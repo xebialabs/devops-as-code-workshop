@@ -1,5 +1,5 @@
-apiVersion: xl-release/v1beta1
-kind: Configurations
+apiVersion: xl-release/v1
+kind: Templates
 spec:
 - name: Fortify on Demand Server
   type: fortifyOnDemand.Server
@@ -10,15 +10,9 @@ spec:
 - name: Sonar Server
   type: sonar.Server
   url: http://sonar.example.com
----
-apiVersion: xl-release/v1beta1
-kind: Templates
-spec:
-- name: e-Commerce
-  type: xlrelease.Folder
+- directory: e-Commerce
   children:
-  - name: e-Commerce CD pipeline
-    type: xlrelease.Release
+  - template: e-Commerce CD pipeline
     description: |
       This XL Release template shows how to deploy and undeploy an application, based on microservices architecture, to AWS ECS using XL Deploy.
     tags:
