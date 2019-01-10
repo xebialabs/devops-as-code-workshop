@@ -6,7 +6,7 @@ This workshop will teach you:
 * How to install the XL CLI
 * How to import and deploy a Docker application with XL Deploy
 * How to import and run a pipeline with XL Release
-* How to export XL YAML files to learn about the syntax
+* How to generate XL YAML files to learn about the syntax
 
 ## Prerequisites
 
@@ -251,7 +251,7 @@ $ xl apply -f exercise-5/rest-o-rant-docker-pipeline.yaml
 
 You'll have noticed that the pipeline has two separate steps to deploy and later undeploy the **rest-o-rant-api-docker** and the **rest-o-rant-web-docker** packages. If we make the frontend depend on the backend, we can simplify the pipeline _and_ ensure that the frontend is not deployed without the backend.
 
-In this exercise we will make the necessary modification in the package and the pipeline and then teach you how to export them back to YAML.
+In this exercise we will make the necessary modification in the package and the pipeline and then teach you how to generate the XL YAML files for those modifications.
 
 1) In XL Deploy, open **Applications/rest-o-rant-web-docker/1.0** and add the following entry to the **Application Dependencies** map:
 
@@ -265,27 +265,27 @@ and change **Undeploy Unused Dependencies** to `true`.
 
 3) Run the pipeline to verify that the application dependencies and the updated pipeline function correctly. When the pipeline has completed, go to the XL Deploy UI and check that the **rest-o-rant-api-docker** application was undeployed.
 
-4) Export the XL YAML files for the changes:
+4) Generate the XL YAML files for the changes:
 
 ```
-$ xl export -s xl-deploy -p Applications/rest-o-rant-web-docker -f exercise-6/rest-o-rant-web-docker-with-dependencies.yaml
-$ xl export -s xl-release -p REST-o-rant -f exercise-6/rest-o-rant-pipeline-with-dependencies.yaml
+$ xl generate -s xl-deploy -p Applications/rest-o-rant-web-docker -f exercise-6/rest-o-rant-web-docker-with-dependencies.yaml
+$ xl generate -s xl-release -p REST-o-rant -f exercise-6/rest-o-rant-pipeline-with-dependencies.yaml
 ```
 
-5) Review the exported XL YAML files and compare them with the originals from exercises 4 and 5 respectively.
+5) Review the generated XL YAML files and compare them with the originals from exercises 4 and 5 respectively.
 
-## Exercise 7: Export an XL YAML file with artifacts
+## Exercise 7: Generate an XL YAML file with artifacts
 
-The XL YAML format also allows you to use artifacts. To see what that looks like, let's export the PetClinic sample package:
+The XL YAML format also allows you to use artifacts. To see what that looks like, let's generate the PetClinic sample package:
 
 1) In the XL Deploy UI, import the **PetClinic-ear/1.0** sample package from the XL Deploy server.
 
-2) Export the XL YAML file for the package you just imported to see how to specify artifacts:
+2) Generate the XL YAML file for the package you just imported to see how to specify artifacts:
 ```
-$ xl export -s xl-deploy -p Applications/PetClinic-ear/1.0 -f exercise-7/petlinic-ear.yaml
+$ xl generate -s xl-deploy -p Applications/PetClinic-ear/1.0 -f exercise-7/petlinic-ear.yaml
 ```
 
-3) Review the exported XL YAML file and the artifact.
+3) Review the generated XL YAML file and the artifact.
 
 
 # Part II - AWS (ECS and Fargate)
@@ -375,4 +375,4 @@ Not only will this stop the XL DevOps Platform, it will also remove any data sto
 
 ## Bonus exercise: create something new!
 
-OK, that was cool and all. Now use the `xl export` command to learn more about the YAML format and build your own YAML file.
+OK, that was cool and all. Now use the `xl generate` command to learn more about the YAML format and build your own YAML file.
