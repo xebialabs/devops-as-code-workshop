@@ -64,9 +64,9 @@ $ docker-compose up --build
 devops-as-code-workshop_xl-cli_1 exited with code 0
 ```
 
-5) Open the XL Deploy GUI at http://localhost:4516/ and login with the username `admin` and password `admin`. Verify that the about box reports the version to be **8.5.0-alpha.25**.
+5) Open the XL Deploy GUI at http://localhost:4516/ and login with the username `admin` and password `admin`. Verify that the about box reports the version to be **8.6.1**.
 
-6) Open the XL Release GUI at http://localhost:5516/ and login with the username `admin` and password `admin`. Verify that the about box reports the version to be **8.5.0-alpha.22**.
+6) Open the XL Release GUI at http://localhost:5516/ and login with the username `admin` and password `admin`. Verify that the about box reports the version to be **8.6.1**.
 
 ## Install the XL CLI
 
@@ -74,20 +74,20 @@ devops-as-code-workshop_xl-cli_1 exited with code 0
 
 ### Mac
 ```
-$ curl -LO https://s3.amazonaws.com/xl-cli/bin/8.5.0/darwin-amd64/xl
+$ curl -LO https://s3.amazonaws.com/xl-cli/bin/8.6.1/darwin-amd64/xl
 $ chmod +x xl
 $ sudo mv xl /usr/local/bin
 ```
 
 ### Linux
 ```
-$ curl -LO https://s3.amazonaws.com/xl-cli/bin/8.5.0/linux-amd64/xl
+$ curl -LO https://s3.amazonaws.com/xl-cli/bin/8.6.1/linux-amd64/xl
 $ chmod +x xl
 $ sudo mv xl /usr/local/bin
 ```
 
 ### Windows
-Download https://s3.amazonaws.com/xl-cli/bin/8.5.0/windows-amd64/xl.exe
+Download https://s3.amazonaws.com/xl-cli/bin/8.6.1/windows-amd64/xl.exe
 and place it somewhere on your `%PATH%`
 
 2) Verify that you have installed the correct version of the XL CLI by executing the following command:
@@ -98,12 +98,12 @@ $ xl version
 
 The output should look like this:
 ```
-CLI version:             8.5.0
-Git version:             8.5.0-0-g2d5a36c
+CLI version:             8.6.1
+Git version:             8.6.0-4-gaf96240
 API version XL Deploy:   xl-deploy/v1
 API version XL Release:  xl-release/v1
-Git commit:              2d5a36cd5769ea59b0ac4e11e4709d6504381076
-Build date:              2018-12-05T14:01:24.212Z
+Git commit:              af962402e3b0d9a6cfb7c366e35f21578e848f05
+Build date:              2019-03-27T13:07:32.971Z
 GO version:              go1.11
 OS/Arch:                 darwin/amd64
 ```
@@ -117,7 +117,7 @@ $ xl help
 
 The output should look  like this:
 ```
-XL Cli 8.5.0
+XL Cli 8.6.1
 The xl command line tool provides a fast and straightforward method for provisioning
 XL Release and XL Deploy with YAML files. The files can include items like
 releases, pipelines, applications and target environments.
@@ -130,24 +130,26 @@ Available Commands:
   blueprint   Create a Blueprint
   generate    Generate configuration
   help        Help about any command
+  ide         IDE commands
   license     Display license info
+  preview     Preview Deployment
   version     Display version info
   wrapper     Generate XL wrapper
 
 Flags:
-      --blueprint-repository-password string   Password for the blueprint repository
-      --blueprint-repository-url string        URL for the blueprint repository (default "https://dist.xebialabs.com/public/blueprints")
-      --blueprint-repository-username string   Username for the blueprint repository
-      --config string                          config file (default: $HOME/.xebialabs/config.yaml)
-  -h, --help                                   help for xl
-  -q, --quiet                                  suppress all output, except for errors
-  -v, --verbose                                verbose output
-      --xl-deploy-password string              Password to access the XL Deploy server (default "admin")
-      --xl-deploy-url string                   URL to access the XL Deploy server (default "http://localhost:4516/")
-      --xl-deploy-username string              Username to access the XL Deploy server (default "admin")
-      --xl-release-password string             Password to access the XL Release server (default "admin")
-      --xl-release-url string                  URL to access the XL Release server (default "http://localhost:5516/")
-      --xl-release-username string             Username to access the XL Release server (default "admin")
+      --blueprint-current-repository string   Current active blueprint repository name
+      --config string                         config file (default: $HOME/.xebialabs/config.yaml)
+  -h, --help                                  help for xl
+  -q, --quiet                                 suppress all output, except for errors
+  -v, --verbose                               verbose output
+      --xl-deploy-authmethod string           Authentication method to access the XL Deploy server (default "http")
+      --xl-deploy-password string             Password to access the XL Deploy server (default "admin")
+      --xl-deploy-url string                  URL to access the XL Deploy server (default "http://localhost:4516/")
+      --xl-deploy-username string             Username to access the XL Deploy server (default "admin")
+      --xl-release-authmethod string          Authentication method to access the XL Release server (default "http")
+      --xl-release-password string            Password to access the XL Release server (default "admin")
+      --xl-release-url string                 URL to access the XL Release server (default "http://localhost:5516/")
+      --xl-release-username string            Username to access the XL Release server (default "admin")
 
 Use "xl [command] --help" for more information about a command.
 ```
@@ -203,9 +205,9 @@ The output should look something like this:
 $ docker ps
 CONTAINER ID        IMAGE                                           COMMAND                  CREATED             STATUS              PORTS                    NAMES
 b0611ff9ffbb        xebialabsunsupported/rest-o-rant-api            "java -Djava.securit…"   11 seconds ago      Up 10 seconds       8080/tcp                 rest-o-rant-api
-f80c2b00a88e        xebialabsunsupported/xl-release:8.5.0           "/opt/xebialabs/tini…"   3 days ago          Up About an hour    0.0.0.0:5516->5516/tcp   devops-as-code-workshop_xl-release_1
+f80c2b00a88e        xebialabsunsupported/xl-release:8.6.1           "/opt/xebialabs/tini…"   3 days ago          Up About an hour    0.0.0.0:5516->5516/tcp   devops-as-code-workshop_xl-release_1
 a99c31ddd458        tecnativa/docker-socket-proxy:latest            "/docker-entrypoint.…"   3 days ago          Up About an hour    2375/tcp                 devops-as-code-workshop_dockerproxy_1
-68a5c6439540        xebialabsunsupported/xl-deploy:8.5.0            "/opt/xebialabs/tini…"   3 days ago          Up About an hour    0.0.0.0:4516->4516/tcp   devops-as-code-workshop_xl-deploy_1
+68a5c6439540        xebialabsunsupported/xl-deploy:8.6.1            "/opt/xebialabs/tini…"   3 days ago          Up About an hour    0.0.0.0:4516->4516/tcp   devops-as-code-workshop_xl-deploy_1
 ```
 
 ## Exercise 4: Deploy a (slightly) more complex package
